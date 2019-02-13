@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Header, NavMenuMobile } from './Header.js'
+import { Body } from './Body.js'
+import { Footer } from './Footer.js'
+
 import './App.css';
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      showMenu:false,
+    }
+  }
+  toggle(){
+    this.setState({showMenu: !this.state.showMenu})
+}
   render() {
+    let navMenuMobile = (this.state.showMenu) ? <NavMenuMobile toggle={this.toggle}/> : null 
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Header showMenu={this.state.showMenu} toggle={this.toggle}/>
+        {navMenuMobile}
+        <Body/> 
+        <Footer/>
       </div>
     );
   }
